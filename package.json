@@ -5,6 +5,7 @@
     "bower": "*",
     "express-less": "*",
     "less": "*",
+    "request": "^2.67.0",
     "requirejs": "*",
     "socket.io": "^1.4.4"
   },

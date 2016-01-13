@@ -13,13 +13,13 @@ app.use('/css', expressLess(__dirname + '/css/less', {
 }));
 
 if(app.get('env') == 'development') {
-	app.use(express.static('app'));
+    app.use(express.static('app'));
 } else {
-	app.use(express.static('dist'));
+    app.use(express.static('dist'));
 }
 
 require('./streaming.js')(server);
 
 server.listen(app.get('port'), function() {
-	console.log('Express server listening on port ' + app.get('port'));
+    console.log('Express server listening on port ' + app.get('port'));
 });
