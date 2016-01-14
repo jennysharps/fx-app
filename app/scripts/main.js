@@ -20,10 +20,7 @@ require([
     'libs/config',
     'collections/fx-pairs',
     'views/fx-pairs',
-    'socketio',
-], function($, utils, siteConfig, FxPairCollection, FxCollectionView, io) {
-    var g10Currencies = siteConfig.currencies;
-    var $table = $("#mytable");
+], function($, utils, siteConfig, FxPairCollection, FxCollectionView) {
     var $main = $('#main');
 
     var g10PairsCollection = new FxPairCollection([], {currencies: siteConfig.currencies});
@@ -33,6 +30,4 @@ require([
         $main.append(fxPricesView.render().el)
         g10PairsCollection.connect();
     });
-
-    window.collection = g10PairsCollection;
 });
