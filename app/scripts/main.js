@@ -3,7 +3,8 @@ require.config({
         "jquery": "../vendor/jquery/dist/jquery",
         "underscore": "../vendor/underscore-amd/underscore",
         "backbone": "../vendor/backbone-amd/backbone",
-        "socketio": "../socket.io/socket.io"
+        "socketio": "../socket.io/socket.io",
+        "config": "../config"
     },
     shim: {
         'socketio': {
@@ -17,9 +18,12 @@ require([
     'libs/utils',
     'collections/fx-pairs',
     'views/fx-prices',
-    'socketio'
-], function($, utils, FxPairCollection, FxPricesView, io) {
-    var x = new FxPairCollection();
+    'socketio',
+    'config'
+], function($, utils, FxPairCollection, FxPricesView, io, config) {
+	var g10Currencies = config.g10Currencies;
+	console.log(g10Currencies);
+    /*var x = new FxPairCollection();
 
     var g10Currencies = [
         'USD', 'EUR', 'JPY', 'GBP', 'CHF',
@@ -45,6 +49,18 @@ require([
     var socket = io.connect('/');
     socket.on('news', function(data) {
         var json = JSON.parse(data);
+        if(json.tick !== undefined) {
+            var row = document.getElementById("mytable").insertRow(-1);
+            row.innerHTML = data;
+        }
+    });*/
+
+	var socket = io.connect('/', {query: {currencies: g10Currencies}});
+    socket.on('news', function(data) {
+        var json = JSON.parse(data);
+
+        console.log(json);
+
         if(json.tick !== undefined) {
             var row = document.getElementById("mytable").insertRow(-1);
             row.innerHTML = data;

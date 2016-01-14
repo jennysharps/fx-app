@@ -1,0 +1,14 @@
+{
+    "g10Currencies": [
+        "USD",
+        "EUR",
+        "JPY",
+        "GBP",
+        "CHF",
+        "AUD",
+        "NZD",
+        "CAD",
+        "SEK",
+        "NOK"
+    ]
+}

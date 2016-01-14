@@ -1,10 +1,10 @@
-var express = require('express');
-var http = require('http');
-var app = express();
-var path = require('path');
-var expressLess = require('express-less');
-var oanda = require('node-oanda');
-var server = http.createServer(app);
+var express = require('express'),
+    routes = require('./routes'),
+    http = require('http'),
+    app = express(),
+    server = app.listen(3000),
+    io = require('socket.io').listen(server),
+    expressLess = require('express-less');
 
 app.set('port', process.env.PORT || 3000);
 
@@ -18,8 +18,11 @@ if(app.get('env') == 'development') {
     app.use(express.static('dist'));
 }
 
-require('./streaming.js')(server);
+console.log("Express server listening on port " + app.get('port'));
 
-server.listen(app.get('port'), function() {
-    console.log('Express server listening on port ' + app.get('port'));
+io.sockets.on('connection', function (socket) {
+    console.log('A new user connected!');
+    socket.emit('info', { msg: 'The world is round, there is no up or down.' });
 });
+
+require('./yahoo-streamer')(io);

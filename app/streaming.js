@@ -35,25 +35,16 @@ module.exports = function(server) {
     fxTrade Practice      stream-fxpractice.oanda.com
     sandbox               stream-sandbox.oanda.com
     */
-    var domain = 'stream-fxpractice.oanda.com'
+    var domain = 'streamerapi.finance.yahoo.com'
     var access_token = '8b9699ef245d6ee74e208dcc96586634-d2e812ff05296370b662c5b6b4b5d4ea'
     var account_id = '9386135'
     var instruments = "EUR_USD%2CUSD_CAD"
 
-    var https;
-
-    if (domain.indexOf("stream-sandbox") > -1) {
-        https = require('http');
-    } else {
-        https = require('https');
-    }
 
     function StreamOptions(instruments) {
-        instruments = instruments || [];
         this.host = domain;
-        this.path = '/v1/prices?accountId=' + account_id + '&instruments=' + instruments.join('%2C');
+        this.path = '/streamer/1.0?s=' + instruments;
         this.method = 'GET';
-        this.headers = {"Authorization" : "Bearer " + access_token};
     };
 
     for(var i = 0; i < availableInstrumentGroups.length; i++) {
