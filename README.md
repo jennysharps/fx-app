@@ -20,11 +20,11 @@ FX Currency Matrix
     bower.json
     package.json
     
-## Requirements
-# Prerequisites
+# Requirements
+## Prerequisites
 - Node
 
-# Steps
+## Steps
 - Open terminal
 - Type `npm install`
 - Type `npm start`
