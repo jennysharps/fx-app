@@ -2,7 +2,7 @@
 //http://nodejs.org/api.html#http-client-183
 
 //dependencies
-var http = require('http'), //http module
+var http = require('http'),
     sys = require('util'),
     config = require('./config'),
     last, bodyChunk;
