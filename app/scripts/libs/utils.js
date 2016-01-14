@@ -15,19 +15,4 @@ define([
         return pairs;
     }
     exports.pairwise = pairwise;
-
-    function pairs(list) {
-        var pairs = [];
-
-        for (var i = 0; i < list.length; i++) {
-            for (var j = 0; j < list.length; j++) {
-                if(j !== i) {
-                    pairs.push([list[i], list[j]]);
-                }
-            }
-        }
-
-        return pairs;
-    }
-    exports.pairs = pairs;
 });

@@ -7,9 +7,11 @@ define([
 
     model.defaults = {
         id: null,
+        displayOrder: null,
         Ask: null,
         Bid: null,
         Change: null,
+        changeKey: null,
         Currency: null,
         LastTradeDate: null,
         LastTradeWithTime: null,
@@ -25,19 +27,16 @@ define([
     };
 
     model.initialize = function(attrs, options) {
-        console.log('Model initialized');
+
     };
 
     model.parse = function(res, options) {
         var attrs = res = res || {};
 
         attrs.id = res.Symbol !== undefined ? res.Symbol.replace('=X', '') : Math.random();
+        attrs.changeKey = res.Change[0] === '-' ? 'negative' : 'positive';
 
         return attrs;
-    };
-
-    model.validate = function(attrs, options) {
-
     };
 
     return Backbone.Model.extend(model);

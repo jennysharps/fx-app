@@ -1,8 +1,11 @@
 define([
   'backbone',
-  'models/fx-pair'
-], function (Backbone, FxPairModel) {
+  'models/fx-pair',
+  'socketio'
+], function (Backbone, FxPairModel, io) {
     var collection = {};
+
+    collection.count = 0;
 
     collection.queryCols = [
         'Ask', 'Bid', 'Change', 'Currency', 'LastTradeDate', 'LastTradeWithTime',
@@ -10,12 +13,6 @@ define([
         'Symbol', 'LastTradeTime', 'StockExchange', 'PercentChange'
     ];
 
-
-/*https://query.yahooapis.com/v1/public/yql?q=select%20Ask,%20Bid,%20Change,%20Currency,
-%20LastTradeDate,%20LastTradeWithTime,%20LastTradePriceOnly,%20Name,%20Open,%20PreviousClose,
-%20ChangeinPercent,%20Symbol,%20LastTradeTime,%20StockExchange,%20PercentChange%20from%20
-yahoo.finance.quotes%20where%2520symbol%2520in%2520()&format=jsone&env=
-store://datatables.org/alltableswithkeys&callback=*/
     collection.url = function() {
         var url = 'https://query.yahooapis.com/v1/public/yql',
             select = 'select ' + this.queryCols.join(', '),
@@ -31,6 +28,8 @@ store://datatables.org/alltableswithkeys&callback=*/
 
     collection.model = FxPairModel;
 
+    collection.comparator = 'Name';
+
     collection.initialize = function(models, options) {
         options || (options = {});
 
@@ -45,6 +44,21 @@ store://datatables.org/alltableswithkeys&callback=*/
         } else {
             return res;
         }
+    };
+
+    collection.connect = function() {
+        this.socket = io.connect('/');
+        this.socket.on('quoteUpdate', this.handleDataUpdate.bind(this));
+    };
+
+    collection.handleDataUpdate = function(data) {
+        var json = JSON.parse(data),
+            model = this.get(json.id);
+
+        if(model !== undefined) {
+            model.set('Ask', json.Ask);
+            model.set('Change', json.Change);
+        };
     };
 
     collection.getCurrencyPairsQueryStr = function() {

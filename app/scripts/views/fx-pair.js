@@ -4,28 +4,32 @@ define([
     var view = {};
 
     view.initialize = function() {
-        console.log('FX detail view initialized');
+        this.listenTo(this.model, 'change:Ask', this.update);
     };
 
     view.template = _.template($("#FxPairView").html());
-    //view.template = _.template($("#PhotoViewTemplate").html());
-
-    /*view.el = '#main';*/
 
     view.tagName = 'tr';
+
+    view.className = 'transition';
 
     view.render = function() {
         this.el.innerHTML = this.template(this.model.toJSON());
         return this;
     };
 
-    /*view.className = 'media photo-item';*/
+    view.update = function() {
+        this.render();
+        var rowClass = this.model.get('changeKey') === 'positive' ? 'success' : 'danger';
+        this.$el.addClass(rowClass);
+        setTimeout(this.clearRowClass.bind(this), 1500);
 
-    /*view.attributes = function() {
-        return {
-            'data-client-id': this.model.cid
-        }
-    };*/
+        return this;
+    };
+
+    view.clearRowClass = function() {
+        this.$el.removeClass('success danger');
+    };
 
     return Backbone.View.extend(view);
 });

@@ -14,18 +14,24 @@
 
         <script type='text/template' id='FxPairsView'>
             <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover">
-                    <tr>
-                        <th class="sortable">Pair</th>
-                        <th class="sortable">Price</th>
-                    </tr>
+                <table class="table table-condensed table-hover">
+                    <caption>FX Rates for G10 Pairs</caption>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th class="sortable" data-sort-type="Name">Pair</th>
+                            <th class="sortable" data-sort-type="Ask">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
                 </table>
             </div>
         </script>
 
         <script type='text/template' id='FxPairView'>
+            <th scope="row"><%= displayOrder %></td>
             <td><%= Name %></td>
-            <td><%= Ask %></td>
+            <td><span class="change-<%= changeKey %>"><%= Ask %></span></td>
         </script>
 
         <script data-main="scripts/main.js" src="vendor/requirejs/require.js"></script>

@@ -14,8 +14,20 @@ function onConnect(socket) {
 
     setInterval(function() {
         if(bodyChunk !== last) {
-            socket.emit('quote-update', bodyChunk);
-            last = bodyChunk;
+            var data = JSON.parse(bodyChunk);
+
+            for(var symbol in data) break;
+
+            if(data[symbol].l10 !== undefined) {
+                var returnData = {
+                    'id': symbol,
+                    'Ask': data[symbol].l10,
+                    'Change': data[symbol].c10
+                }
+
+                socket.emit('quoteUpdate', JSON.stringify(returnData));
+                last = bodyChunk;
+            }
         }
     }, 0.005);
 }
