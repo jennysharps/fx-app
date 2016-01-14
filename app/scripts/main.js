@@ -6,6 +6,7 @@ require.config({
         socketio: "../socket.io/socket.io",
         text: "../vendor/requirejs-plugins/lib/text",
         json: "../vendor/requirejs-plugins/src/json",
+        q: "../vendor/q/q"
     },
     shim: {
         socketio: {
@@ -19,7 +20,7 @@ require([
     'libs/utils',
     'libs/config',
     'collections/fx-pairs',
-    'views/fx-pairs',
+    'views/fx-pairs'
 ], function($, utils, siteConfig, FxPairCollection, FxCollectionView) {
     var $main = $('#main');
 

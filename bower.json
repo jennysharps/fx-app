@@ -8,6 +8,7 @@
     "requirejs": null,
     "bootstrap-less": null,
     "socket.io": null,
-    "requirejs-plugins": "~1.0.3"
+    "requirejs-plugins": "~1.0.3",
+    "q": "1.0.1"
   }
 }

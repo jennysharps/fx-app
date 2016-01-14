@@ -1,8 +1,8 @@
 define([
   'backbone',
-  'models/fx-pair',
-  'socketio'
-], function (Backbone, FxPairModel, io) {
+  'models/fx-pair'
+], function (Backbone, FxPairModel) {
+    /* global io*/
     var collection = {};
 
     collection.count = 0;

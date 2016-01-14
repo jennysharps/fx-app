@@ -15,8 +15,10 @@ FX Currency Matrix
         /vendor
         config.json (shared between server & client)
         index.html
-        serve.js
         fx-stream.js
+        serve.js
+    bower.json
+    package.json
     
 ## Requirements
 
