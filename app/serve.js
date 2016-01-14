@@ -20,9 +20,4 @@ if(app.get('env') == 'development') {
 
 console.log("Express server listening on port " + app.get('port'));
 
-io.sockets.on('connection', function (socket) {
-    console.log('A new user connected!');
-    socket.emit('info', { msg: 'The world is round, there is no up or down.' });
-});
-
 require('./yahoo-streamer')(io);

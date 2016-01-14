@@ -15,7 +15,7 @@ function onConnect(socket) {
     setInterval(function() {
         console.log(last);
         if(bodyChunk !== last) {
-            socket.emit('news', bodyChunk);
+            socket.emit('news', bodyChunk,
             last = bodyChunk;
         }
     }, 0.005);
@@ -46,7 +46,7 @@ function openStream() {
 
             if(match && typeof match === 'object' && match[1] !== undefined) {
                 console.log('BODY: ' + match[1]);
-                bodyChunk = JSON.stringify(match[1]);
+                bodyChunk = match[1];
             }
         });
 

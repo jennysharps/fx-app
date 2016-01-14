@@ -1,12 +1,13 @@
 {
-	"name": "Flickr Public Feed",
-	"version": "1.0.0",
-	"dependencies": {
-		"jquery": null,
-		"backbone-amd": null,
-		"underscore-amd": null,
-		"requirejs": null,
-		"bootstrap-less": null,
-		"socket.io": null
-	}
+  "name": "Flickr Public Feed",
+  "version": "1.0.0",
+  "dependencies": {
+    "jquery": null,
+    "backbone-amd": null,
+    "underscore-amd": null,
+    "requirejs": null,
+    "bootstrap-less": null,
+    "socket.io": null,
+    "requirejs-plugins": "~1.0.3"
+  }
 }
