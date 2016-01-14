@@ -49,6 +49,11 @@ define([
     collection.connect = function() {
         this.socket = io.connect('/');
         this.socket.on('quoteUpdate', this.handleDataUpdate.bind(this));
+        window.onbeforeunload = this.disconnect.bind(this);
+    };
+
+    collection.disconnect = function() {
+        this.socket.disconnect();
     };
 
     collection.handleDataUpdate = function(data) {
