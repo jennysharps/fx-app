@@ -26,6 +26,8 @@ FX Currency Matrix
 
 ## Steps
 - Open terminal
+- Type `git clone https://github.com/jennysharps/fx-app.git`
+- `cd` into fx-app directory
 - Type `npm install`
 - Type `npm start`
 - Navigate to [http://localhost:3000](http://localhost:3000) in your browser window
