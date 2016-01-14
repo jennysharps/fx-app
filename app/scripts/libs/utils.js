@@ -1,6 +1,6 @@
 define([
     'exports',
-], function(exports, sortOrder) {
+], function(exports) {
     function pairwise(list) {
         var pairs = new Array((list.length * (list.length - 1)) / 2),
             pos = 0;

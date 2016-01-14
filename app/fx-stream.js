@@ -7,15 +7,14 @@ var http = require('http'), //http module
     config = require('./config'),
     last, bodyChunk;
 
-var g10Currencies = config.g10Currencies;
+var currencies = config.currencies;
 
 function onConnect(socket) {
     openStream();
 
     setInterval(function() {
-        console.log(last);
         if(bodyChunk !== last) {
-            socket.emit('news', bodyChunk,
+            socket.emit('quote-update', bodyChunk);
             last = bodyChunk;
         }
     }, 0.005);
@@ -46,7 +45,8 @@ function openStream() {
 
             if(match && typeof match === 'object' && match[1] !== undefined) {
                 console.log('BODY: ' + match[1]);
-                bodyChunk = match[1];
+                var data = match[1].replace(/=X/, '').replace(/(['"])?([a-zA-Z0-9_]+)(['"])?:([^\/])/g, '"$2":$4');
+                bodyChunk = data;
             }
         });
 
@@ -62,11 +62,11 @@ function openStream() {
 function getCurrencyPairsStr() {
     var pairs = '';
 
-    for (var i = 0; i < g10Currencies.length; i++) {
-        for (var j = 0; j < g10Currencies.length; j++) {
+    for (var i = 0; i < currencies.length; i++) {
+        for (var j = 0; j < currencies.length; j++) {
             if(j !== i) {
                 pairs += (i + j === 0) ? '' : ',';
-                pairs += g10Currencies[i] + g10Currencies[j] + '=X';
+                pairs += currencies[i] + currencies[j] + '=X';
             }
         }
     }

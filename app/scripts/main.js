@@ -1,11 +1,11 @@
 require.config({
     paths: {
-        "jquery": "../vendor/jquery/dist/jquery",
-        "underscore": "../vendor/underscore-amd/underscore",
-        "backbone": "../vendor/backbone-amd/backbone",
-        "socketio": "../socket.io/socket.io",
-        "text": "../vendor/requirejs-plugins/lib/text",
-        "json": "../vendor/requirejs-plugins/src/json"
+        jquery: "../vendor/jquery/dist/jquery",
+        underscore: "../vendor/underscore-amd/underscore",
+        backbone: "../vendor/backbone-amd/backbone",
+        socketio: "../socket.io/socket.io",
+        text: "../vendor/requirejs-plugins/lib/text",
+        json: "../vendor/requirejs-plugins/src/json"
     },
     shim: {
         'socketio': {
@@ -17,14 +17,23 @@ require.config({
 require([
     'jquery',
     'libs/utils',
+    'libs/config',
     'collections/fx-pairs',
-    'views/fx-prices',
+    'views/fx-pairs',
     'socketio',
-    'json!../config.json'
-], function($, utils, FxPairCollection, FxPricesView, io, config) {
-	var g10Currencies = config.g10Currencies;
+], function($, utils, siteConfig, FxPairCollection, FxCollectionView, io) {
+	var g10Currencies = siteConfig.currencies;
 	var $table = $("#mytable");
+    var $main = $('#main');
 
+    var g10PairsCollection = new FxPairCollection([], {currencies: siteConfig.currencies});
+    
+    g10PairsCollection.fetch().done(function(res) {
+        var fxPricesView = new FxCollectionView({collection: g10PairsCollection});
+        $main.append(fxPricesView.render().el)
+    });
+
+    window.collection = g10PairsCollection;
     /*var x = new FxPairCollection();
 
     var combinations = utils.pairwise(g10Currencies),
@@ -53,10 +62,14 @@ require([
     });*/
 
 	var socket = io.connect('/');
-    socket.on('news', function(data) {
+    socket.on('quote-update', function(data) {
         var json = JSON.parse(data);
 
-        var row = $table[0].insertRow(-1);
-        row.innerHTML = data.l10;
+        for(var symbol in json) break;
+
+        if(json[symbol].l10 !== undefined) {
+            //var row = $table[0].insertRow(-1);
+            //row.innerHTML = symbol + ': ' + json[symbol].l10;
+        }
     });
 });

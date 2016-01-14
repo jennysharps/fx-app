@@ -22,7 +22,6 @@
   "dependencies": {
     "express": "^4.13.3",
     "express-less-middleware": "^1.4.4",
-    "node-oanda": "^1.1.19",
     "nodemon": "^1.8.1"
   }
 }

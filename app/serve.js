@@ -20,4 +20,4 @@ if(app.get('env') == 'development') {
 
 console.log("Express server listening on port " + app.get('port'));
 
-require('./yahoo-streamer')(io);
+require('./fx-stream')(io);
